@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Online voting System</title>
+  
+    <style>
+        h1{
+            color: #FFFFFF;
+        }
+        body {
+  background: #62b4c6;
+  padding-top: 50px;
+}
+
+svg {
+  display: block;
+  margin: 0 auto;
+}
+
+    </style>
+  
+
+  
+</head>
+
+<body>
+    <h1 align="center" > Thank You for voting </h1>
+  <svg class="progress-icon" width="250" height="250" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path id="tick-outline-path" d="M14 28c7.732 0 14-6.268 14-14S21.732 0 14 0 0 6.268 0 14s6.268 14 14 14z" opacity="0" />
+        <path id="tick-path" d="M6.173 16.252l5.722 4.228 9.22-12.69" opacity="0"/>
+    </defs>
+    <g class="tick-icon" stroke-width="2" stroke="rgba(0,0,0,.2)" fill="none" transform="translate(1, 1)">
+        <use class="tick-outline" xlink:href="#tick-outline-path" />
+        <use class="tick" xlink:href="#tick-path" />
+    </g>
+    <g class="tick-icon" stroke-width="2" stroke="#fff" fill="none" transform="translate(1, 1.2)">
+        <use class="tick-outline" xlink:href="#tick-outline-path" />
+        <use class="tick" xlink:href="#tick-path" />
+    </g>
+</svg>
+  <script src='js/tick.js'></script>
+
+    
+        <script> 
+        
+    var showIcon = new ui.Tween({
+    values: {
+        opacity: 1,
+        length: {
+            to: 65,
+            ease: 'easeIn'
+        }
+    }
+});
+
+var spinIcon = new ui.Simulate({
+    values: {
+        rotate: -400
+    }
+});
+
+var progressCompleteOutline = new ui.Tween({
+    values: {
+        rotate: '-=200',
+        length: 100
+    }
+});
+
+var progressCompleteTick = new ui.Tween({
+    delay: 50,
+    values: {
+        length: 100,
+        opacity: 1
+    }
+});
+
+function showTick() {
+    var progressIcon = document.querySelector('.progress-icon');
+    
+    var progressOutline = new ui.Actor({
+        element: progressIcon.getElementById('tick-outline-path')
+    });
+    var progressTick = new ui.Actor({
+        element: progressIcon.getElementById('tick-path')
+    });
+
+    progressOutline.start(showIcon)
+        .then(spinIcon);
+
+    setTimeout(function() {
+        progressOutline.start(progressCompleteOutline);
+        progressTick.start(progressCompleteTick);
+    }, 500)
+    
+}
+
+if (document.readyState != 'loading') {
+    showTick();
+   // setTimeout(function(){window.location.href="index5.php";}, 3000);
+} else {
+    document.addEventListener('DOMContentLoaded', showTick);
+}
+    setTimeout(function(){window.location.href="index5.php";}, 3000);
+        </script>
+</body>
+</html>
